@@ -8,7 +8,7 @@ import {
 } from 'react-icons/fa';
 import './events.css';
 
-// 🔥 Event styles – DO NOT CHANGE
+// Event styles – DO NOT CHANGE
 const eventStyles = {
   Webinar: { icon: FaLaptopCode, color: 'var(--color-accent-blue)' },
   Workshop: { icon: FaRobot, color: 'var(--color-accent-green)' },
@@ -24,16 +24,14 @@ function Events() {
   const [events, setEvents] = useState([]);
   const [flippedCard, setFlippedCard] = useState(null);
 
-  // 🔗 BACKEND API
   const API_URL = import.meta.env.VITE_API_BASE_URL + '/events';
 
-  // 🔄 Fetch events from DB
+  // Fetch events from backend
   useEffect(() => {
     fetch(API_URL)
       .then(res => res.json())
       .then(data => {
-        // id DESC order (latest first)
-        const sorted = data.sort((a, b) => b.id - a.id);
+        const sorted = data.sort((a, b) => b.id - a.id); // latest first
         setEvents(sorted);
       })
       .catch(err => console.error('Events API Error:', err));
@@ -50,7 +48,7 @@ function Events() {
 
     return (
       <div
-        key={e.id}
+        key={i}
         className={`timeline-node ${i % 2 === 0 ? 'left' : 'right'}`}
         style={{ '--accent-color': style.color }}
         onClick={() => handleCardFlip(i)}
@@ -68,14 +66,16 @@ function Events() {
             </span>
 
             <h2 className="event-title">{e.title}</h2>
-            <p className="event-desc">{e.detail}</p>
+            <p className="event-desc">
+              {e.details.length > 100 ? e.details.slice(0, 100) + "..." : e.details}
+            </p>
 
             <div className="card-footer">
               <p>Click for Details <FaChevronRight /></p>
             </div>
 
-            {/* 🟢 Register Button */}
-            {e.register_open && e.gform_link && (
+            {/* Register Button */}
+            {e.register && e.gform_link && (
               <button
                 className="register-btn"
                 onClick={(ev) => {
@@ -91,9 +91,9 @@ function Events() {
           {/* BACK */}
           <div className="card-face card-back">
             <h3 className="event-details-title">DETAILS</h3>
-            <p className="event-details-text">{e.detail}</p>
+            <p className="event-details-text">{e.details}</p>
 
-            {e.register_open && e.gform_link && (
+            {e.register && e.gform_link && (
               <button
                 className="register-btn"
                 onClick={(ev) => {
