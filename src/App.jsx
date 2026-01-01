@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 // Public components
 import Navbar from "./components/Navbar.jsx";
@@ -77,12 +77,12 @@ const AdminLayout = () => (
 /* ---------- App ---------- */
 function App() {
   return (
-    <Router>
+    <>
       <Routes>
         <Route path="/*" element={<PublicLayout />} />
         <Route path="/admin/*" element={<AdminLayout />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 
