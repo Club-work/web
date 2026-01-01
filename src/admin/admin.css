@@ -1,0 +1,66 @@
+/* ===== ADMIN COMMON ===== */
+.admin-box {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.admin-box h1,
+.admin-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+/* ===== INPUTS ===== */
+.admin-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* ===== BUTTONS ===== */
+.admin-box button {
+  padding: 8px 14px;
+  margin: 4px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.admin-box button:hover {
+  background-color: #0056b3;
+}
+
+/* ===== LIST ===== */
+.admin-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.admin-box li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f4f4f4;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  border-radius: 5px;
+}
+
+/* ===== DELETE BUTTON ===== */
+.admin-box button:last-child {
+  background-color: #dc3545;
+}
+
+.admin-box button:last-child:hover {
+  background-color: #b52a37;
+}

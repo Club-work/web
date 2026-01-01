@@ -1,7 +1,6 @@
 import React from "react";
-import { FaRocket, FaLightbulb, FaHandsHelping, FaCodeBranch } from 'react-icons/fa';
+import { FaRocket, FaLightbulb, FaHandsHelping, FaCodeBranch, FaEye, FaBullseye } from 'react-icons/fa';
 import "./about.css";
-// import teamMember1 from '../assets/team1.jpg'; // Placeholder images
 
 function About() {
   const coreValues = [
@@ -13,18 +12,50 @@ function About() {
   return (
     <div className="about-container">
 
-      {/* 🚀 Hero Section - Mission Statement */}
+      {/* 🚀 Hero Section */}
       <section className="about-hero-section">
         <div className="mission-content">
           <FaRocket className="mission-icon" />
           <h1 className="about-title">
-            Unlocking Potential in the **Digital Frontier**
+            Unlocking Potential in the <strong>Digital Frontier</strong>
           </h1>
           <p className="about-subtitle">
-            Adas Club is a vibrant community dedicated to empowering students
+            Ada’s Club is a vibrant community dedicated to empowering students
             with the skills, knowledge, and network to drive technological change.
             Established in 2023, we're building the future, one project at a time.
           </p>
+        </div>
+      </section>
+
+      {/* 🎯 Vision & Mission Section - Reusing Core Value Styles */}
+      <section className="core-values-section" style={{ borderBottom: 'none' }}>
+        <div className="values-grid">
+          {/* Vision Card */}
+          <div className="value-card">
+            <div className="card-icon-wrapper" style={{ color: 'var(--color-accent-blue)', background: 'rgba(0, 124, 240, 0.1)' }}>
+                <FaEye />
+            </div>
+            <h3>Our Vision</h3>
+            <p>
+              To be a global catalyst for inclusivity in tech, where a new generation 
+              of diverse leaders pioneers the next wave of innovation through bold 
+              creativity and technical excellence.
+            </p>
+          </div>
+
+          {/* Mission Card */}
+          <div className="value-card">
+            <div className="card-icon-wrapper">
+                <FaBullseye />
+            </div>
+            <h3>Our Mission</h3>
+            <div className="mission-list-container">
+                <p><strong>Skill Development:</strong> Coding workshops and practical learning.</p>
+                <p><strong>Real-World Projects:</strong> Collaborative builds that solve problems.</p>
+                <p><strong>Mentorship:</strong> Professional guidance and career readiness.</p>
+                <p><strong>Inclusivity:</strong> Empowering women and underrepresented groups.</p>
+            </div>
+          </div>
         </div>
       </section>
 

@@ -58,7 +58,7 @@
   font-weight: 900;
   letter-spacing: -1px;
   margin-bottom: 20px;
-  color: white; /* Title is white, bolded words can be styled */
+  color: white; 
 }
 
 .about-title strong {

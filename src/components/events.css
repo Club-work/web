@@ -139,10 +139,12 @@
 /* 3D Flippable Card Styling */
 /* ---------------------------------------------------- */
 .event-card-3d {
+    position: relative;   
     perspective: 1000px;
     transform-style: preserve-3d;
     transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    height: 220px; 
+    height: auto; 
+    min-height:260px;
 }
 
 .event-card-3d.is-flipped {
@@ -151,6 +153,7 @@
 
 .card-face {
     position: absolute;
+    inset:0;
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
@@ -159,9 +162,12 @@
     background-color: var(--color-card-bg);
     border: 1px solid var(--color-border);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    display: flex;
+    display: 100%;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start; /* ✅ text starts from top */
+    gap: 10px;                   /* ✅ clean spacing */
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .card-back {
@@ -190,13 +196,17 @@
 .event-desc {
     font-size: 1rem;
     color: var(--color-text-dim);
-    line-height: 1.4;
+    line-height: 1.6;         /* ✅ readability */
+    word-wrap: break-word;   /* ✅ text cut aagathu */
+    white-space: normal;
 }
+
 
 .card-footer {
     font-size: 0.9rem;
     color: var(--accent-color);
     font-weight: 600;
+    margin-top: auto;
 }
 
 /* Back Card Content (Details) */
@@ -209,9 +219,11 @@
 }
 
 .event-details-text {
-    font-size: 1rem;
+    font-size: medium;
     color: var(--color-text-light);
     flex-grow: 1;
+    line-height: 1.5;
+    word-wrap: break-word;
 }
 
 .event-details-year {
@@ -234,7 +246,7 @@
     /* All nodes stack vertically on the left */
     .timeline-node {
         width: 100%;
-        padding-left: 55px;
+        padding-left: 15px;
         padding-right: 15px;
         left: 0 !important; /* Override the 55% left rule */
         text-align: left;
@@ -245,6 +257,7 @@
     .timeline-node.right .timeline-node-dot {
         left: 10px;
         right: auto;
+        
     }
 }
 
