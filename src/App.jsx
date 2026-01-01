@@ -11,7 +11,7 @@ import Events from "./components/Events.jsx";
 import Contact from "./components/Contact.jsx";
 
 // Admin components
-import AdminAuth from "./admin/adminAuth.jsx";
+import AdminAuth from "./admin/AdminAuth.jsx";
 import AdminLogin from "./admin/AdminLogin.jsx";
 import AdminDashboard from "./admin/AdminDashboard.jsx";
 import AdminEvents from "./admin/AdminEvents.jsx";
