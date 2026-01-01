@@ -24,7 +24,7 @@ export const updateEvent = (id, data) => API.put(`/events/${id}`, data);
 export const deleteEvent = (id) => API.delete(`/events/${id}`);
 
 /* -------------------- PRESIDENT -------------------- */
-export const getPresidents = () => API.get("/presidents");
+export const getPresidentMembers = () => API.get("/presidents");
 export const addPresident = (data) => API.post("/presidents", data);
 export const updatePresident = (id, data) => API.put(`/presidents/${id}`, data);
 export const deletePresident = (id) => API.delete(`/presidents/${id}`);
