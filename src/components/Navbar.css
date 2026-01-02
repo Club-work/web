@@ -5,9 +5,9 @@
   padding: 15px 100px;
   background-color: #0f0f0f;
   color: white;
-  position: sticky;
+  position: relative;
   top: 0;
-  z-index: 100;
+  z-index: 999;
   width:100%;
 }
 
@@ -63,4 +63,11 @@
   .navbar-toggle {
     display: block;
   }
+}
+
+.menu-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 998;
 }
