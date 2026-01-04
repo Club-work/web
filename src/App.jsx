@@ -79,8 +79,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/*" element={<PublicLayout />} />
         <Route path="/admin/*" element={<AdminLayout />} />
+        <Route path="/*" element={<PublicLayout />} />
       </Routes>
     </>
   );
