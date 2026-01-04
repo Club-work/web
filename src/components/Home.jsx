@@ -19,9 +19,7 @@ const Home = () => {
             Empowering the Next Generation of <br />
             **Innovation & Technology**
           </p>
-          <div className="logo-circle">
-  <img src={logo} alt="Adas Club Logo" />
-</div>
+          
           <div className="hero-actions">
             {/* PRIMARY CTA: Link to /contact page */}
             <Link to="/contact" className="cta-button primary-cta">
