@@ -1,36 +1,33 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-// Public components
-import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
-import Home from "./components/Home.jsx";
-import About from "./components/About.jsx";
-import Members from "./components/Members.jsx";
-import Events from "./components/Events.jsx";
-import Contact from "./components/Contact.jsx";
+// Public
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Home from "./components/Home";
+import About from "./components/About";
+import Members from "./components/Members";
+import Events from "./components/Events";
+import Contact from "./components/Contact";
 
-// Admin components
-import AdminAuth from "./admin/AdminAuth.jsx";
-import AdminLogin from "./admin/AdminLogin.jsx";
-import AdminDashboard from "./admin/AdminDashboard.jsx";
-import AdminEvents from "./admin/AdminEvents.jsx";
-import AdminPresident from "./admin/AdminPresident.jsx";
-import AdminMember from "./admin/AdminMember.jsx";
+// Admin
+import AdminAuth from "./admin/AdminAuth";
+import AdminLogin from "./admin/AdminLogin";
+import AdminDashboard from "./admin/AdminDashboard";
+import AdminEvents from "./admin/AdminEvents";
+import AdminPresident from "./admin/AdminPresident";
+import AdminMember from "./admin/AdminMember";
 
 /* ---------- Public Layout ---------- */
 const PublicLayout = () => (
   <>
     <Navbar />
-    <div className="main-content">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/members" element={<Members />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route index element={<Home />} />
+      <Route path="about" element={<About />} />
+      <Route path="members" element={<Members />} />
+      <Route path="events" element={<Events />} />
+      <Route path="contact" element={<Contact />} />
+    </Routes>
     <Footer />
   </>
 );
@@ -38,33 +35,37 @@ const PublicLayout = () => (
 /* ---------- Admin Layout ---------- */
 const AdminLayout = () => (
   <Routes>
-    <Route path="/admin/login" element={<AdminLogin />} />
+    <Route index element={<AdminLogin />} />
+
     <Route
-      path="/admin/dashboard"
+      path="dashboard"
       element={
         <AdminAuth>
           <AdminDashboard />
         </AdminAuth>
       }
     />
+
     <Route
-      path="/admin/events"
+      path="events"
       element={
         <AdminAuth>
           <AdminEvents />
         </AdminAuth>
       }
     />
+
     <Route
-      path="/admin/president"
+      path="president"
       element={
         <AdminAuth>
           <AdminPresident />
         </AdminAuth>
       }
     />
+
     <Route
-      path="/admin/member"
+      path="member"
       element={
         <AdminAuth>
           <AdminMember />
@@ -75,15 +76,11 @@ const AdminLayout = () => (
 );
 
 /* ---------- App ---------- */
-function App() {
+export default function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/admin/*" element={<AdminLayout />} />
-        <Route path="/*" element={<PublicLayout />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/admin/*" element={<AdminLayout />} />
+      <Route path="/*" element={<PublicLayout />} />
+    </Routes>
   );
 }
-
-export default App;
