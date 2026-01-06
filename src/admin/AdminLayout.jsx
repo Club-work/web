@@ -1,10 +1,8 @@
 import { Outlet } from "react-router-dom";
 const AdminLayout = () => (
   <Routes>
-    {/* this = /admin */}
-    <Route index element={<AdminLogin />} />
+    <Route path="login" element={<AdminLogin />} />
 
-    {/* this = /admin/dashboard */}
     <Route
       path="dashboard"
       element={
@@ -14,7 +12,6 @@ const AdminLayout = () => (
       }
     />
 
-    {/* this = /admin/events */}
     <Route
       path="events"
       element={

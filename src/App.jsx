@@ -35,8 +35,10 @@ const PublicLayout = () => (
 /* ---------- Admin Layout ---------- */
 const AdminLayout = () => (
   <Routes>
-    <Route index element={<AdminLogin />} />
+    {/* LOGIN – NOT PROTECTED */}
+    <Route path="login" element={<AdminLogin />} />
 
+    {/* PROTECTED ROUTES */}
     <Route
       path="dashboard"
       element={
