@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { getEvents, addEvent, updateEvent, deleteEvent } from "../config/api";
+import {
+  getEvents,
+  addEvent,
+  updateEvent,
+  deleteEvent
+} from "../config/api";
 
 const AdminEvents = () => {
   const [events, setEvents] = useState([]);

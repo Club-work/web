@@ -1,11 +1,9 @@
 import axios from "axios";
 
-// Base URL from .env
 const API = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
-// 🔐 Admin token attach pannradhu
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem("adminToken");
   if (token) {
@@ -14,27 +12,33 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-/* -------------------- AUTH -------------------- */
+/* AUTH */
 export const adminLogin = (data) => API.post("/admin/login", data);
 
-/* -------------------- EVENTS -------------------- */
+/* EVENTS */
 export const getEvents = () => API.get("/events");
-export const addEvent = (data) => API.post("/events", data);
-export const updateEvent = (id, data) => API.put(`/events/${id}`, data);
-export const deleteEvent = (id) => API.delete(`/events/${id}`);
+export const addEvent = (data) => API.post("/admin/events", data);
+export const updateEvent = (id, data) =>
+  API.put(`/admin/events/${id}`, data);
+export const deleteEvent = (id) =>
+  API.delete(`/admin/events/${id}`);
 
-/* -------------------- PRESIDENT -------------------- */
-export const getPresidentMembers = () => API.get("/presidents");
-export const addPresident = (data) => API.post("/presidents", data);
-export const updatePresident = (id, data) => API.put(`/presidents/${id}`, data);
-export const deletePresident = (id) => API.delete(`/presidents/${id}`);
+/* PRESIDENT */
+export const addPresident = (data) =>
+  API.post("/admin/president", data);
+export const updatePresident = (id, data) =>
+  API.put(`/admin/president/${id}`, data);
+export const deletePresident = (id) =>
+  API.delete(`/admin/president/${id}`);
 
-/* -------------------- MEMBERS -------------------- */
-export const getMembers = () => API.get("/members");
-export const addMember = (data) => API.post("/members", data);
-export const updateMember = (id, data) => API.put(`/members/${id}`, data);
-export const deleteMember = (id) => API.delete(`/members/${id}`);
+/* MEMBERS */
+export const addMember = (data) =>
+  API.post("/admin/members", data);
+export const updateMember = (id, data) =>
+  API.put(`/admin/members/${id}`, data);
+export const deleteMember = (id) =>
+  API.delete(`/admin/members/${id}`);
 
-/* -------------------- CONTACT -------------------- */
+/* CONTACT */
 export const sendContactMessage = (data) =>
   API.post("/contact", data);
