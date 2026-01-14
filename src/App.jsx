@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 // Public
-import PublicLayout from "./Layout/PublicLayout";
+import PublicLayout from "./layout/PublicLayout";
 import Home from "./components/Home";
 import About from "./components/About";
 import Members from "./components/Members";
