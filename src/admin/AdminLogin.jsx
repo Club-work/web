@@ -7,18 +7,18 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const nav = useNavigate();
 
-  // already logged in → redirect
   useEffect(() => {
     const token = localStorage.getItem("adminToken");
-    if (token) {
-      nav("/admin/dashboard");
-    }
+    if (token) nav("/admin/dashboard");
   }, []);
 
   const login = async () => {
     try {
       const res = await adminLogin({ username, password });
+
+      // 🔐 store token silently
       localStorage.setItem("adminToken", res.data.token);
+
       nav("/admin/dashboard");
     } catch {
       alert("Invalid Admin Credentials");
