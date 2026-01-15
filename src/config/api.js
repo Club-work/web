@@ -13,11 +13,11 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-/* ---------------- AUTH ---------------- */
+/* ================= AUTH ================= */
 export const adminLogin = (data) =>
   API.post("/admin/login", data);
 
-/* ---------------- EVENTS ---------------- */
+/* ================= EVENTS ================= */
 // Public read
 export const getEvents = () =>
   API.get("/events");
@@ -32,7 +32,11 @@ export const updateEvent = (id, data) =>
 export const deleteEvent = (id) =>
   API.delete(`/admin/events/${id}`);
 
-/* ---------------- PRESIDENT ---------------- */
+/* ================= PRESIDENT ================= */
+// 🔥 THIS WAS MISSING — VERY IMPORTANT
+export const getPresidentMembers = () =>
+  API.get("/president-members"); // public GET
+
 export const addPresident = (data) =>
   API.post("/admin/president", data);
 
@@ -42,7 +46,7 @@ export const updatePresident = (id, data) =>
 export const deletePresident = (id) =>
   API.delete(`/admin/president/${id}`);
 
-/* ---------------- MEMBERS ---------------- */
+/* ================= MEMBERS ================= */
 export const addMember = (data) =>
   API.post("/admin/members", data);
 
@@ -52,7 +56,7 @@ export const updateMember = (id, data) =>
 export const deleteMember = (id) =>
   API.delete(`/admin/members/${id}`);
 
-/* ---------------- CONTACT ---------------- */
+/* ================= CONTACT ================= */
 export const sendContactMessage = (data) =>
   API.post("/contact", data);
 
