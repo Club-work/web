@@ -47,6 +47,10 @@ export const deletePresident = (id) =>
   API.delete(`/admin/president/${id}`);
 
 /* ================= MEMBERS ================= */
+/* MEMBERS (ADMIN) */
+export const getMembersAdmin = () =>
+  API.get("/admin/members");
+
 export const addMember = (data) =>
   API.post("/admin/members", data);
 
