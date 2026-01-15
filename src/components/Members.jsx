@@ -1,103 +1,91 @@
-import { useEffect, useState } from "react";
-import {
-  addMember,
-  updateMember,
-  deleteMember,
-  getMembersAdmin
-} from "../config/api";
+import React, { useEffect, useState } from "react";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import "./members.css";
 
-const AdminMember = () => {
-  const [members, setMembers] = useState([]);
-  const [form, setForm] = useState({
-    name: "",
-    role: "",
-    photo_url: "",
-    president_id: ""
-  });
-  const [editId, setEditId] = useState(null);
+const API_URL = import.meta.env.VITE_API_BASE_URL + "/president-members";
 
-  // ✅ Load members (LIKE EVENTS)
-  const loadMembers = async () => {
-    const res = await getMembersAdmin();
-    setMembers(res.data);
-  };
+export default function Members() {
+  const [data, setData] = useState([]);
+  const [openBox, setOpenBox] = useState(null);
 
   useEffect(() => {
-    loadMembers();
+    fetch(API_URL)
+      .then(res => res.json())
+      .then(setData)
+      .catch(err => console.error("Members API error", err));
   }, []);
 
-  const submit = async () => {
-    if (editId) {
-      await updateMember(editId, form);
-    } else {
-      await addMember(form);
-    }
-
-    setForm({ name: "", role: "", photo_url: "", president_id: "" });
-    setEditId(null);
-    loadMembers();
+  const toggleBox = (id) => {
+    setOpenBox(prev => (prev === id ? null : id));
   };
 
   return (
-    <div className="admin-box">
-      <h2>Members</h2>
+    <div className="members-container">
+      <h1 className="page-title">
+        <span className="gradient-text">
+          Adas Club Leadership Archives
+        </span>
+      </h1>
 
-      {/* ---------- FORM ---------- */}
-      <input
-        placeholder="Name"
-        value={form.name}
-        onChange={e => setForm({ ...form, name: e.target.value })}
-      />
+      <div className="leadership-archive">
+        {data.map((p) => {
+          const isOpen = openBox === p.id;
+          const Icon = isOpen ? FaChevronUp : FaChevronDown;
 
-      <input
-        placeholder="Role"
-        value={form.role}
-        onChange={e => setForm({ ...form, role: e.target.value })}
-      />
-
-      <input
-        placeholder="Photo URL"
-        value={form.photo_url}
-        onChange={e => setForm({ ...form, photo_url: e.target.value })}
-      />
-
-      <input
-        placeholder="President ID"
-        value={form.president_id}
-        onChange={e => setForm({ ...form, president_id: e.target.value })}
-      />
-
-      <button onClick={submit}>
-        {editId ? "Update Member" : "Add Member"}
-      </button>
-
-      {/* ---------- LIST ---------- */}
-      <ul style={{ marginTop: "20px" }}>
-        {members.map(m => (
-          <li key={m.id}>
-            <b>{m.name}</b> — {m.role}
-
-            <button
-              onClick={() => {
-                setEditId(m.id);
-                setForm(m);
-              }}
+          return (
+            <div
+              key={p.id}
+              className={`president-card-box ${isOpen ? "is-open" : ""}`}
             >
-              Edit
-            </button>
+              {/* ✅ ONLY HEADER IS CLICKABLE */}
+              <div
+                className="president-header"
+                onClick={() => toggleBox(p.id)}
+              >
+                <div className="photo-wrapper">
+                  <img
+                    src={p.photo_url}
+                    className="president-photo"
+                    alt={p.name}
+                  />
+                </div>
 
-            <button
-              onClick={() => {
-                deleteMember(m.id).then(loadMembers);
-              }}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+                <div className="president-info">
+                  <h3 className="president-name">{p.name}</h3>
+                  <p className="president-year">({p.year})</p>
+
+                  <div className="expand-indicator">
+                    <Icon className="toggle-icon" />
+                    <span className="toggle-text">
+                      {isOpen ? "Hide Team" : "View Team"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* ✅ STOP EVENT BUBBLING INSIDE GRID */}
+              {isOpen && (
+                <div
+                  className="expandable-member-grid"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {p.members.map((m) => (
+                    <div key={m.id} className="member-item">
+                      <div className="member-photo-circle">
+                        <img src={m.photo_url} alt={m.name} />
+                      </div>
+                      <p className="member-name-small">
+                        <strong>{m.name}</strong>
+                      </p>
+                      <p className="member-role-small">{m.role}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
-};
-
-export default AdminMember;
+}
