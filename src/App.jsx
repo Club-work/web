@@ -1,15 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 
-// Public
-import PublicLayout from "./layout/PublicLayout";
+// Public components
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./components/Home";
 import About from "./components/About";
 import Members from "./components/Members";
 import Events from "./components/Events";
 import Contact from "./components/Contact";
 
-// Admin
-import AdminLayout from "./admin/AdminLayout";
+// Admin components
 import AdminAuth from "./admin/AdminAuth";
 import AdminLogin from "./admin/AdminLogin";
 import AdminDashboard from "./admin/AdminDashboard";
@@ -19,26 +19,26 @@ import AdminMember from "./admin/AdminMember";
 
 export default function App() {
   return (
-    <Routes>
+    <>
+      {/* ---------- PUBLIC LAYOUT ---------- */}
+      <Navbar />
 
-      {/* ---------- PUBLIC ROUTES ---------- */}
-      <Route path="/" element={<PublicLayout />}>
-        <Route index element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="members" element={<Members />} />
-        <Route path="events" element={<Events />} />
-        <Route path="contact" element={<Contact />} />
-      </Route>
+      <Routes>
+        {/* PUBLIC ROUTES */}
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/members" element={<Members />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/contact" element={<Contact />} />
 
-      {/* ---------- ADMIN ROUTES ---------- */}
-      <Route path="/admin" element={<AdminLayout />}>
+        {/* ---------- ADMIN ROUTES ---------- */}
 
-        {/* Login – NOT protected */}
-        <Route path="login" element={<AdminLogin />} />
+        {/* LOGIN – NOT protected */}
+        <Route path="/admin/login" element={<AdminLogin />} />
 
-        {/* Protected routes */}
+        {/* PROTECTED ADMIN ROUTES */}
         <Route
-          path="dashboard"
+          path="/admin/dashboard"
           element={
             <AdminAuth>
               <AdminDashboard />
@@ -47,15 +47,16 @@ export default function App() {
         />
 
         <Route
-          path="events"
+          path="/admin/events"
           element={
             <AdminAuth>
               <AdminEvents />
             </AdminAuth>
           }
         />
-            <Route
-          path="president"
+
+        <Route
+          path="/admin/president"
           element={
             <AdminAuth>
               <AdminPresident />
@@ -64,15 +65,16 @@ export default function App() {
         />
 
         <Route
-          path="member"
+          path="/admin/member"
           element={
             <AdminAuth>
               <AdminMember />
             </AdminAuth>
           }
         />
-      </Route>
+      </Routes>
 
-    </Routes>
+      <Footer />
+    </>
   );
 }
