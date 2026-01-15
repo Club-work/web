@@ -16,13 +16,15 @@ export default function Members() {
   }, []);
 
   const toggleBox = (id) => {
-    setOpenBox(openBox === id ? null : id);
+    setOpenBox(prev => (prev === id ? null : id));
   };
 
   return (
     <div className="members-container">
       <h1 className="page-title">
-        <span className="gradient-text">Adas Club Leadership Archives</span>
+        <span className="gradient-text">
+          Adas Club Leadership Archives
+        </span>
       </h1>
 
       <div className="leadership-archive">
@@ -34,11 +36,18 @@ export default function Members() {
             <div
               key={p.id}
               className={`president-card-box ${isOpen ? "is-open" : ""}`}
-              onClick={() => toggleBox(p.id)}
             >
-              <div className="president-header">
+              {/* ✅ ONLY HEADER IS CLICKABLE */}
+              <div
+                className="president-header"
+                onClick={() => toggleBox(p.id)}
+              >
                 <div className="photo-wrapper">
-                  <img src={p.photo_url} className="president-photo" />
+                  <img
+                    src={p.photo_url}
+                    className="president-photo"
+                    alt={p.name}
+                  />
                 </div>
 
                 <div className="president-info">
@@ -54,14 +63,20 @@ export default function Members() {
                 </div>
               </div>
 
+              {/* ✅ STOP EVENT BUBBLING INSIDE GRID */}
               {isOpen && (
-                <div className="expandable-member-grid">
+                <div
+                  className="expandable-member-grid"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   {p.members.map((m) => (
                     <div key={m.id} className="member-item">
                       <div className="member-photo-circle">
-                        <img src={m.photo_url} />
+                        <img src={m.photo_url} alt={m.name} />
                       </div>
-                      <p className="member-name-small"><strong>{m.name}</strong></p>
+                      <p className="member-name-small">
+                        <strong>{m.name}</strong>
+                      </p>
                       <p className="member-role-small">{m.role}</p>
                     </div>
                   ))}
