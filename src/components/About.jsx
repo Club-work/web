@@ -12,8 +12,8 @@ function About() {
   return (
     <div className="about-container">
 
-      {/* 🚀 Hero Section */}
-      <section className="about-hero-section">
+          {/* 🚀 Hero Section */}
+        <section className="about-hero-section">
         <div className="mission-content">
           <FaRocket className="mission-icon" />
           <h1 className="about-title">
@@ -26,6 +26,25 @@ function About() {
           </p>
         </div>
       </section>
+{/* 👩‍💻 Inspiration Section – Ada Lovelace */}
+<section className="core-values-section">
+  <h2 className="section-heading">Why ADAS?</h2>
+
+  <div className="values-grid">
+    <div className="value-card">
+      <h3>Ada Lovelace</h3>
+
+      <p>
+        Ada Lovelace is widely recognised as the world’s first computer
+        programmer. Long before computers existed, she imagined how algorithms
+        could power machines to think beyond numbers.
+        <br /><br />
+        ADAS Club is inspired by her vision — to nurture innovation, encourage
+        women in technology, and shape leaders for the digital future.
+      </p>
+    </div>
+  </div>
+</section>
 
       {/* 🎯 Vision & Mission Section - Reusing Core Value Styles */}
       <section className="core-values-section" style={{ borderBottom: 'none' }}>
