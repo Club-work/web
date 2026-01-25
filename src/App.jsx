@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-// Public components
+/* ---------- PUBLIC ---------- */
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
@@ -9,7 +9,7 @@ import Members from "./components/Members";
 import Events from "./components/Events";
 import Contact from "./components/Contact";
 
-// Admin components
+/* ---------- ADMIN ---------- */
 import AdminAuth from "./admin/AdminAuth";
 import AdminLogin from "./admin/AdminLogin";
 import AdminDashboard from "./admin/AdminDashboard";
@@ -17,64 +17,81 @@ import AdminEvents from "./admin/AdminEvents";
 import AdminPresident from "./admin/AdminPresident";
 import AdminMember from "./admin/AdminMember";
 
-export default function App() {
+/* ---------- PUBLIC LAYOUT ---------- */
+function PublicLayout() {
   return (
     <>
-      {/* ---------- PUBLIC LAYOUT ---------- */}
       <Navbar />
 
       <Routes>
-        {/* PUBLIC ROUTES */}
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/members" element={<Members />} />
         <Route path="/events" element={<Events />} />
         <Route path="/contact" element={<Contact />} />
-
-        {/* ---------- ADMIN ROUTES ---------- */}
-
-        {/* LOGIN – NOT protected */}
-        <Route path="/admin/login" element={<AdminLogin />} />
-
-        {/* PROTECTED ADMIN ROUTES */}
-        <Route
-          path="/admin/dashboard"
-          element={
-            <AdminAuth>
-              <AdminDashboard />
-            </AdminAuth>
-          }
-        />
-
-        <Route
-          path="/admin/events"
-          element={
-            <AdminAuth>
-              <AdminEvents />
-            </AdminAuth>
-          }
-        />
-
-        <Route
-          path="/admin/president"
-          element={
-            <AdminAuth>
-              <AdminPresident />
-            </AdminAuth>
-          }
-        />
-
-        <Route
-          path="/admin/member"
-          element={
-            <AdminAuth>
-              <AdminMember />
-            </AdminAuth>
-          }
-        />
       </Routes>
 
       <Footer />
     </>
+  );
+}
+
+/* ---------- ADMIN LAYOUT ---------- */
+function AdminLayout() {
+  return (
+    <Routes>
+      {/* LOGIN – NO AUTH */}
+      <Route path="/login" element={<AdminLogin />} />
+
+      {/* PROTECTED */}
+      <Route
+        path="/dashboard"
+        element={
+          <AdminAuth>
+            <AdminDashboard />
+          </AdminAuth>
+        }
+      />
+
+      <Route
+        path="/events"
+        element={
+          <AdminAuth>
+            <AdminEvents />
+          </AdminAuth>
+        }
+      />
+
+      <Route
+        path="/president"
+        element={
+          <AdminAuth>
+            <AdminPresident />
+          </AdminAuth>
+        }
+      />
+
+      <Route
+        path="/member"
+        element={
+          <AdminAuth>
+            <AdminMember />
+          </AdminAuth>
+        }
+      />
+    </Routes>
+  );
+}
+
+/* ---------- ROOT ---------- */
+export default function App() {
+  return (
+    <Routes>
+      {/* PUBLIC WEBSITE */}
+      <Route path="/*" element={<PublicLayout />} />
+
+      {/* ADMIN PANEL */}
+      <Route path="/admin/*" element={<AdminLayout />} />
+    </Routes>
   );
 }
