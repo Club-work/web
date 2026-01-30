@@ -5,7 +5,7 @@ import { adminLogin } from "../config/api";
 const AdminLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState("");
 
   const navigate = useNavigate();
 
@@ -16,22 +16,16 @@ const AdminLogin = () => {
     }
 
     try {
-      setLoading(true);
-
       const res = await adminLogin({ username, password });
-
-      // 🔐 SAVE TOKEN
-      localStorage.setItem("adminToken", res.data.token);
-
-      alert("✅ Admin login successful");
-
-      // 🚀 REDIRECT
-      navigate("/admin/dashboard");
-    } catch (err) {
+      setToken(res.data.token);
+    } catch {
       alert("❌ Invalid admin credentials");
-    } finally {
-      setLoading(false);
     }
+  };
+
+  const confirmLogin = () => {
+    localStorage.setItem("adminToken", token);
+    navigate("/admin/dashboard");
   };
 
   return (
@@ -51,9 +45,15 @@ const AdminLogin = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <button onClick={handleLogin} disabled={loading}>
-        {loading ? "Logging in..." : "Login"}
-      </button>
+      <button onClick={handleLogin}>Generate Token</button>
+
+      {token && (
+        <>
+          <p>🔐 Generated Token</p>
+          <textarea value={token} readOnly rows={4} />
+          <button onClick={confirmLogin}>OK → Dashboard</button>
+        </>
+      )}
     </div>
   );
 };
