@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_API_BASE_URL + "/president-members";
 
 export default function Members() {
   const [data, setData] = useState([]);
-  const [openBox, setOpenBox] = useState(null);
+  const [openId, setOpenId] = useState(null);
 
   useEffect(() => {
     fetch(API_URL)
@@ -15,8 +15,8 @@ export default function Members() {
       .catch(err => console.error("Members API error", err));
   }, []);
 
-  const toggleBox = (id) => {
-    setOpenBox(prev => (prev === id ? null : id));
+  const toggle = (id) => {
+    setOpenId(prev => (prev === id ? null : id));
   };
 
   return (
@@ -28,60 +28,46 @@ export default function Members() {
       </h1>
 
       <div className="leadership-archive">
-        {data.map((p) => {
-          const isOpen = openBox === p.id;
+        {data.map(p => {
+          const isOpen = openId === p.id;
           const Icon = isOpen ? FaChevronUp : FaChevronDown;
 
           return (
-            <div
-              key={p.id}
-              className={`president-card-box ${isOpen ? "is-open" : ""}`}
-            >
-              {/* ✅ ONLY HEADER IS CLICKABLE */}
+            <div key={p.id} className="president-card-box">
+              
+              {/* ✅ CLICK ONLY THIS HEADER */}
               <div
                 className="president-header"
-                onClick={() => toggleBox(p.id)}
+                onClick={() => toggle(p.id)}
               >
                 <div className="photo-wrapper">
-                  <img
-                    src={p.photo_url}
-                    className="president-photo"
-                    alt={p.name}
-                  />
+                  <img src={p.photo_url} alt={p.name} />
                 </div>
 
                 <div className="president-info">
-                  <h3 className="president-name">{p.name}</h3>
-                  <p className="president-year">({p.year})</p>
+                  <h3>{p.name}</h3>
+                  <p>({p.year})</p>
 
                   <div className="expand-indicator">
-                    <Icon className="toggle-icon" />
-                    <span className="toggle-text">
-                      {isOpen ? "Hide Team" : "View Team"}
-                    </span>
+                    <Icon />
+                    <span>{isOpen ? "Hide Team" : "View Team"}</span>
                   </div>
                 </div>
               </div>
 
-              {/* ✅ STOP EVENT BUBBLING INSIDE GRID */}
+              {/* ✅ ONLY THIS PRESIDENT MEMBERS */}
               {isOpen && (
-                <div
-                  className="expandable-member-grid"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {p.members.map((m) => (
+                <div className="expandable-member-grid">
+                  {p.members.map(m => (
                     <div key={m.id} className="member-item">
-                      <div className="member-photo-circle">
-                        <img src={m.photo_url} alt={m.name} />
-                      </div>
-                      <p className="member-name-small">
-                        <strong>{m.name}</strong>
-                      </p>
-                      <p className="member-role-small">{m.role}</p>
+                      <img src={m.photo_url} alt={m.name} />
+                      <p><b>{m.name}</b></p>
+                      <p>{m.role}</p>
                     </div>
                   ))}
                 </div>
               )}
+
             </div>
           );
         })}
