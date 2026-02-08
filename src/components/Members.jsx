@@ -15,9 +15,14 @@ export default function Members() {
       .catch(err => console.error("Members API error", err));
   }, []);
 
-  const toggleBox = (id) => {
-    setOpenBox(prev => (prev === id ? null : id));
-  };
+const toggleBox = (id) => {
+  setOpenBox((prevOpenBox) => {
+    if (prevOpenBox === id) {
+      return null;      // same president → close
+    }
+    return id;          // different president → close old, open new
+  });
+};
 
   return (
     <div className="members-container">
