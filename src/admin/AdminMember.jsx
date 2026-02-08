@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import API, {
+import {
+  getMembersAdmin,
   addMember,
   updateMember,
   deleteMember
@@ -16,13 +17,14 @@ const AdminMember = () => {
     president_id: ""
   });
 
-  // 🔄 Load members list
+  // 🔄 LOAD MEMBERS
   const loadMembers = async () => {
     try {
-      const res = await API.get("/admin/members");
+      const res = await getMembersAdmin();
       setMembers(res.data);
     } catch (err) {
-      alert("Failed to load members");
+      console.error(err);
+      alert("❌ Failed to load members");
     }
   };
 
@@ -30,7 +32,7 @@ const AdminMember = () => {
     loadMembers();
   }, []);
 
-  // ➕ Add / ✏️ Update
+  // ➕ ADD / ✏️ UPDATE
   const submit = async () => {
     try {
       if (editId) {
@@ -47,12 +49,13 @@ const AdminMember = () => {
       });
       setEditId(null);
       loadMembers();
-    } catch {
-      alert("Member operation failed");
+    } catch (err) {
+      console.error(err);
+      alert("❌ Member operation failed");
     }
   };
 
-  // ✏️ Edit click
+  // ✏️ EDIT
   const editMember = (m) => {
     setEditId(m.id);
     setForm({
@@ -63,7 +66,7 @@ const AdminMember = () => {
     });
   };
 
-  // 🗑 Delete
+  // 🗑 DELETE
   const removeMember = async (id) => {
     if (!window.confirm("Delete this member?")) return;
     await deleteMember(id);
@@ -74,29 +77,22 @@ const AdminMember = () => {
     <div className="admin-box">
       <h2>Members</h2>
 
-      {/* FORM */}
       <input
         placeholder="Name"
         value={form.name}
-        onChange={(e) =>
-          setForm({ ...form, name: e.target.value })
-        }
+        onChange={(e) => setForm({ ...form, name: e.target.value })}
       />
 
       <input
         placeholder="Role"
         value={form.role}
-        onChange={(e) =>
-          setForm({ ...form, role: e.target.value })
-        }
+        onChange={(e) => setForm({ ...form, role: e.target.value })}
       />
 
       <input
         placeholder="Photo URL"
         value={form.photo_url}
-        onChange={(e) =>
-          setForm({ ...form, photo_url: e.target.value })
-        }
+        onChange={(e) => setForm({ ...form, photo_url: e.target.value })}
       />
 
       <input
@@ -108,12 +104,14 @@ const AdminMember = () => {
       />
 
       <button onClick={submit}>
-        {editId ? "Update" : "Add"}
+        {editId ? "Update Member" : "Add Member"}
       </button>
 
       <hr />
 
-      {/* LIST VIEW */}
+      {/* 👥 LIST */}
+      {members.length === 0 && <p>No members found</p>}
+
       {members.map((m) => (
         <div
           key={m.id}
@@ -124,16 +122,12 @@ const AdminMember = () => {
           }}
         >
           <span>
-            <b>{m.name}</b> – {m.role}
+            <b>{m.name}</b> — {m.role} (President ID: {m.president_id})
           </span>
 
           <span>
-            <button onClick={() => editMember(m)}>
-              Edit
-            </button>
-            <button onClick={() => removeMember(m.id)}>
-              Delete
-            </button>
+            <button onClick={() => editMember(m)}>Edit</button>
+            <button onClick={() => removeMember(m.id)}>Delete</button>
           </span>
         </div>
       ))}
