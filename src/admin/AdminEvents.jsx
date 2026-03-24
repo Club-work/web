@@ -26,6 +26,15 @@ const AdminEvents = () => {
 
   const submit = async () => {
     try {
+      // 🔥 Google Form validation (added)
+      if (
+        form.gform_link &&
+        !form.gform_link.startsWith("https://docs.google.com/forms/")
+      ) {
+        alert("❌ Enter valid Google Form link");
+        return;
+      }
+
       if (editId) {
         await updateEvent(editId, form);
       } else {
@@ -68,10 +77,13 @@ const AdminEvents = () => {
         onChange={e => setForm({ ...form, details: e.target.value })}
       />
 
+      {/* 🔥 Validation added here */}
       <input
         placeholder="Google Form Link"
         value={form.gform_link}
         onChange={e => setForm({ ...form, gform_link: e.target.value })}
+        pattern="https://docs.google.com/forms/.*"
+        title="Enter valid Google Form link"
       />
 
       <label>
@@ -87,30 +99,30 @@ const AdminEvents = () => {
         {editId ? "Update" : "Add"}
       </button>
 
-     <ul>
-  {events.map(e => (
-    <li key={e.id}>
-      <span>{e.title}</span>
+      <ul>
+        {events.map(e => (
+          <li key={e.id}>
+            <span>{e.title}</span>
 
-      <div>
-        <button
-          onClick={() => {
-            setEditId(e.id);
-            setForm(e);
-          }}
-        >
-          Edit
-        </button>
+            <div>
+              <button
+                onClick={() => {
+                  setEditId(e.id);
+                  setForm(e);
+                }}
+              >
+                Edit
+              </button>
 
-        <button
-          onClick={() => deleteEvent(e.id).then(load)}
-        >
-          Delete
-        </button>
-      </div>
-    </li>
-  ))}
-</ul>
+              <button
+                onClick={() => deleteEvent(e.id).then(load)}
+              >
+                Delete
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

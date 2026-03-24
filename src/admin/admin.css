@@ -25,6 +25,18 @@
   font-size: 14px;
 }
 
+/* 🔥 ADD THIS (Details textarea fix) */
+.admin-box textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  resize: vertical;
+}
+
 /* ===== BUTTONS ===== */
 .admin-box button {
   padding: 8px 14px;
