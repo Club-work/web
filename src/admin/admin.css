@@ -28,7 +28,7 @@
 /* ===== BUTTONS ===== */
 .admin-box button {
   padding: 8px 14px;
-  margin: 4px;
+  margin: 0; /* 🔥 fixed alignment issue */
   border: none;
   border-radius: 5px;
   background-color: #007bff;
@@ -54,6 +54,18 @@
   padding: 8px 10px;
   margin-bottom: 6px;
   border-radius: 5px;
+}
+
+/* 🔥 ensures text + buttons spacing */
+.admin-box li span {
+  flex: 1;
+}
+
+/* 🔥 aligns Edit & Delete in one line */
+.admin-box li div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* ===== DELETE BUTTON ===== */

@@ -113,24 +113,25 @@ const AdminMember = () => {
       {members.length === 0 && <p>No members found</p>}
 
       {members.map((m) => (
-        <div
-          key={m.id}
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "8px"
-          }}
-        >
-          <span>
-            <b>{m.name}</b> — {m.role} (President ID: {m.president_id})
-          </span>
+  <div
+    key={m.id}
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center", // 🔥 fix alignment
+      marginBottom: "8px"
+    }}
+  >
+    <span style={{ flex: 1 }}>
+      <b>{m.name}</b> — {m.role} (President ID: {m.president_id})
+    </span>
 
-          <span>
-            <button onClick={() => editMember(m)}>Edit</button>
-            <button onClick={() => removeMember(m.id)}>Delete</button>
-          </span>
-        </div>
-      ))}
+    <div className="action-buttons">
+      <button onClick={() => editMember(m)}>Edit</button>
+      <button onClick={() => removeMember(m.id)}>Delete</button>
+    </div>
+  </div>
+))}
     </div>
   );
 };

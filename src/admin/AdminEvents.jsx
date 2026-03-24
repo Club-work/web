@@ -87,19 +87,30 @@ const AdminEvents = () => {
         {editId ? "Update" : "Add"}
       </button>
 
-      <ul>
-        {events.map(e => (
-          <li key={e.id}>
-            {e.title}
-            <button onClick={() => { setEditId(e.id); setForm(e); }}>
-              Edit
-            </button>
-            <button onClick={() => deleteEvent(e.id).then(load)}>
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
+     <ul>
+  {events.map(e => (
+    <li key={e.id}>
+      <span>{e.title}</span>
+
+      <div>
+        <button
+          onClick={() => {
+            setEditId(e.id);
+            setForm(e);
+          }}
+        >
+          Edit
+        </button>
+
+        <button
+          onClick={() => deleteEvent(e.id).then(load)}
+        >
+          Delete
+        </button>
+      </div>
+    </li>
+  ))}
+</ul>
     </div>
   );
 };

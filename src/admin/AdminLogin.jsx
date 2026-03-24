@@ -9,6 +9,12 @@ const AdminLogin = () => {
 
   const navigate = useNavigate();
 
+  // 🔥 LOGOUT FIX (added)
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    navigate("/"); // redirect to user page
+  };
+
   const handleLogin = async () => {
     if (!username || !password) {
       alert("Enter username & password");
@@ -54,6 +60,9 @@ const AdminLogin = () => {
           <button onClick={confirmLogin}>OK → Dashboard</button>
         </>
       )}
+
+      {/* 🔴 LOGOUT BUTTON (added, nothing else changed) */}
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };

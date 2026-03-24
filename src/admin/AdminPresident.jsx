@@ -43,13 +43,38 @@ const AdminPresident = () => {
 
       <button onClick={submit}>{editId?"Update":"Add"}</button>
 
-      {list.map(p => (
-        <div key={p.id}>
-          {p.name} ({p.year})
-          <button onClick={()=>{setEditId(p.id);setForm(p);}}>Edit</button>
-          <button onClick={()=>deletePresident(p.id).then(load)}>Delete</button>
-        </div>
-      ))}
+    {list.map(p => (
+  <div
+    key={p.id}
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: "8px"
+    }}
+  >
+    <span style={{ flex: 1 }}>
+      {p.name} ({p.year})
+    </span>
+
+    <div className="action-buttons">
+      <button
+        onClick={() => {
+          setEditId(p.id);
+          setForm(p);
+        }}
+      >
+        Edit
+      </button>
+
+      <button
+        onClick={() => deletePresident(p.id).then(load)}
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+))}
     </div>
   );
 };
