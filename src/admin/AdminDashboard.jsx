@@ -9,15 +9,7 @@ const AdminDashboard = () => {
       <Link to="/admin/president">Manage Presidents</Link><br/>
       <Link to="/admin/member">Manage Members</Link><br/>
 
-      <button
-        onClick={() => {
-          localStorage.removeItem("adminToken");
-          window.location.href = "/admin/login";
-        }}
-      >
-        Logout
-      </button>
-    </div>
+          </div>
   );
 };
 
